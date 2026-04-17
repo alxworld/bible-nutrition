@@ -1,26 +1,192 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-forest:       #16503d;
+  --color-forest-dark:  #0e3328;
+  --color-forest-light: #e8f5f0;
+  --color-gold:         #d4a017;
+  --color-gold-light:   #fdf4dc;
+  --color-cream:        #faf8f3;
+  --color-parchment:    #f0ebe0;
+  --color-ink:          #1c1c1e;
+  --color-muted:        #6b7280;
+
+  --font-serif:   var(--font-playfair);
+  --font-sans:    var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Typography ─────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif), Georgia, serif;
+  line-height: 1.2;
+}
+
+/* ── Prose article body ─────────────────────────── */
+.prose-article h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: var(--color-forest);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose-article h3 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-article p {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: #2d2d2d;
+  margin-bottom: 1.25rem;
+}
+
+.prose-article ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.25rem;
+}
+
+.prose-article ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: #2d2d2d;
+  margin-bottom: 0.5rem;
+}
+
+.prose-article ul li::before {
+  content: "✦";
+  color: var(--color-gold);
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  font-size: 0.75rem;
+}
+
+/* ── Verse callout ──────────────────────────────── */
+.verse-callout {
+  border-left: 4px solid var(--color-gold);
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-parchment));
+  padding: 1.25rem 1.5rem;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
+
+.verse-callout blockquote {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-forest-dark);
+  margin: 0 0 0.5rem 0;
+}
+
+.verse-callout cite {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ── Highlight box ──────────────────────────────── */
+.highlight-box {
+  background: var(--color-forest);
+  color: #ffffff;
+  padding: 1.5rem 2rem;
+  border-radius: 0.75rem;
+  margin: 2rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.6;
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+/* ── Data table ─────────────────────────────────── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  margin: 1.5rem 0;
+}
+
+.data-table thead tr {
+  background: var(--color-forest);
+  color: white;
+}
+
+.data-table thead th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+}
+
+.data-table tbody tr:nth-child(even) {
+  background: var(--color-parchment);
+}
+
+.data-table tbody tr:hover {
+  background: var(--color-forest-light);
+}
+
+.data-table tbody td {
+  padding: 0.625rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #2d2d2d;
+}
+
+/* ── Card hover animation ───────────────────────── */
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(22, 80, 61, 0.15);
+}
+
+/* ── Scroll indicator animation ─────────────────── */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+.bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+/* ── Reading progress bar ───────────────────────── */
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-forest), var(--color-gold));
+  z-index: 100;
+  transition: width 0.1s linear;
 }
